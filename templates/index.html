@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>YouTube Video Downloader</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 2rem auto; padding: 1rem; }
+        .container { border: 1px solid #e0e0e0; border-radius: 8px; padding: 2rem; background: #f8f9fa; }
+        h1 { color: #ff0000; margin-bottom: 1.5rem; }
+        input[type="text"] { width: 70%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 4px; }
+        button { padding: 0.8rem 1.5rem; background: #ff0000; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        .alert { padding: 1rem; margin-top: 1rem; border-radius: 4px; }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>YouTube Video Downloader</h1>
+        <form method="POST">
+            <input type="text" name="url" placeholder="Enter YouTube URL (e.g., https://youtu.be/dQw4w9WgXcQ)" required>
+            <button type="submit">Download</button>
+        </form>
+
+        {% if success %}
+        <div class="alert success">
+            ✅ Download complete! Check the <code>videos</code> folder.
+        </div>
+        {% endif %}
+
+        {% if error == "invalid_url" %}
+        <div class="alert error">
+            ⚠️ Invalid YouTube URL. Valid examples:<br>
+            • https://youtu.be/dQw4w9WgXcQ<br>
+            • https://www.youtube.com/watch?v=dQw4w9WgXcQ
+        </div>
+        {% elif error == "download_failed" %}
+        <div class="alert error">
+            ⚠️ Download failed. Possible reasons:<br>
+            • Video is private/age-restricted<br>
+            • Region blocked content<br>
+            • Network issues
+        </div>
+        {% elif error == "empty_url" %}
+        <div class="alert error">
+            ⚠️ Please enter a YouTube URL
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
